@@ -14,10 +14,12 @@
         width: 100vw!important;
     }
     .letter-btn {
-        width: 8vw!important;
+        width: 6vw!important;
         height: 10vw!important;
         text-align: center!important;
         color: black!important;
+        margin: 0.1rem!important;
+        height: 12vw!important;
     }
     .letter-btn:hover {
         transform: none!important;
