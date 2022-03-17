@@ -9,6 +9,14 @@ function TurnTable(turn: Turn, word: string) {
         let attempt: string = turn.getOneAttempt(index);
         if (word.includes(attempt)) {
             if (word[index] === attempt) style = 'attempt green';
+            else if (word.indexOf(attempt) <= index) {
+                let counter: number = 0;
+                for (var i = 0; i < turn.getAttempts().length; i++) {
+                    if (turn.getAttempts()[i] === attempt) counter++;
+                }
+                if (counter > 1) style = 'attempt red';
+                else style ='attempt yellow';
+            }
             else style = 'attempt yellow';
         } else {
             if (turn.getAttempts().length >= 5) style = 'attempt red';

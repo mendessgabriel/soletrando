@@ -5,7 +5,6 @@ import DeleteLetterButton from './components/Buttons/DeleteLetterButton/DeleteLe
 import KeyboardLetter from './classes/KeyboardLetter/KeyboardLetter';
 import DoneButton from './components/Buttons/DoneButton/DoneButton';
 import GameTable from './components/GameTable/GameTable';
-import PlayerData from './classes/PlayerData/PlayerData';
 import Keyboard from './components/Keyboard/Keyboard';
 import Header from './components/Header/Header';
 import LibWord from './classes/LibWord/LibWord';
@@ -14,12 +13,10 @@ import Game from './classes/Game/Game';
 import Turn from './classes/Turn/Turn';
 
 function App() {
-  //Criar uma opção de temas pro user escolher o tema da palavra secreta, ex: futebol, filmes...
-  //Pra cada tema, buscar em alguma API ou algo assim uma palavra daquele tema;
   const [game, setGame] = useState<Game>(new Game('', [], []));
   const [libWord, setLibWord] = useState<LibWord[]>([
-    new LibWord('2022-03-16', 'GARFO'), 
-    new LibWord('2022-03-17', 'SONHO'),
+    new LibWord('2022-03-16', 'GARFO'),
+    new LibWord('2022-03-17', 'CRETA'),
     new LibWord('2022-03-18', 'ENTRE'),
     new LibWord('2022-03-19', 'BRAVA'),
     new LibWord('2022-03-20', 'SOLDA'),
@@ -44,7 +41,6 @@ function App() {
   const [clock, setClock] = useState<string>('');
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [modalContent, setModalContent] = useState<number>(0);
-  const [playerData, setPlayerData] = useState<PlayerData>(new PlayerData('0', '0', '0'));
 
   const getCurrentTurn = (): number => {
     let current: Turn = game.getTurns().filter(turn => turn.isCurrentTurn() === true)[0];
@@ -67,30 +63,43 @@ function App() {
     return rigthAttempts;
   }
 
-  const getNewKeyboard = (wrongAttempts: string[], rigthAttempts: string[], attempt: string) => {
-    let formattedKey: KeyboardLetter[] = [];
-    let newKeyboard = keyboardProps;
+  const getRedLetters = (wrongAttempts: string[], formattedKey: KeyboardLetter[]) => {
     for (var i = 0; i < wrongAttempts.length; i++) {
       let keyLetter: KeyboardLetter = new KeyboardLetter(
         keyboardProps.filter(prop => prop.getValue() === wrongAttempts[i])[0].getId(),
         wrongAttempts[i], 'letter-btn red', true);
       formattedKey.push(keyLetter);
     }
+  }
+
+  const getGreenLetters = (rightAttempts: string[], formattedKey: KeyboardLetter[], attempt: string) => {
     for (var i = 0; i < attempt.length; i++) {
-      if (wrongAttempts.filter(att => att === attempt[i]).length === 0) {
-        if (game.getWord()[i] === attempt[i]) {
-          let keyLetter: KeyboardLetter = new KeyboardLetter(
-            keyboardProps.filter(prop => prop.getValue() === attempt[i])[0].getId(),
-            attempt[i], 'letter-btn green', false);
-          formattedKey.push(keyLetter);
-        } else {
-          let keyLetter: KeyboardLetter = new KeyboardLetter(
-            keyboardProps.filter(prop => prop.getValue() === attempt[i])[0].getId(),
-            attempt[i], 'letter-btn yellow', false);
-          formattedKey.push(keyLetter);
-        }
+      if (game.getWord()[i] === attempt[i]) {
+        let keyLetter: KeyboardLetter = new KeyboardLetter(
+          keyboardProps.filter(prop => prop.getValue() === attempt[i])[0].getId(),
+          attempt[i], 'letter-btn green', false);
+        formattedKey.push(keyLetter);
       }
     }
+  }
+
+  const getYellowLetters = (rightAttempts: string[], wrongAttempts: string[], formattedKey: KeyboardLetter[], attempt: string) => {
+    for (var i = 0; i < attempt.length; i++) {
+     if (game.getWord().includes(attempt[i]) && game.getWord()[i] !== attempt[i]) {
+        let keyLetter: KeyboardLetter = new KeyboardLetter(
+          keyboardProps.filter(prop => prop.getValue() === attempt[i])[0].getId(),
+          attempt[i], 'letter-btn yellow', false);
+        formattedKey.push(keyLetter);
+      }
+    }
+  }
+
+  const getNewKeyboard = (wrongAttempts: string[], rightAttempts: string[], attempt: string) => {
+    let formattedKey: KeyboardLetter[] = [];
+    let newKeyboard = keyboardProps;
+    getRedLetters(wrongAttempts, formattedKey);
+    getGreenLetters(rightAttempts, formattedKey, attempt);
+    getYellowLetters(rightAttempts, wrongAttempts, formattedKey, attempt);
     formattedKey.forEach((key) => {
       newKeyboard[key.getId()] = formattedKey.filter(keyb => keyb.getId() === key.getId())[0];
     })
@@ -148,33 +157,47 @@ function App() {
     setLocalStorageRankingBars();
   }
 
-  const done = () => {
-    if (game.getTurns()[getCurrentTurn()].getConcatenedAttempts() === game.getWord()) {
-      setLocalStorageProps();
-      let turnsUpdated: Turn[] = game.getTurns();
-      turnsUpdated.filter(turn => turn.isCurrentTurn() === true)[0].setCurrentTurn(false);
-      setGame(new Game(game.getWord(), turnsUpdated, game.getPastTurns()));
-      setTimeout(
-        () => {
-          setIsGameOver(!isGameOver);
-          setModalContent(1);
-          setIsModalOpen(!isModalOpen);
-        }, 1000);
-    } else {
-      if (game.getTurns()[getCurrentTurn()].getId() === game.getWord().length) {
+  const gameOver = () => {
+    setTimeout(
+      () => {
         setIsGameOver(!isGameOver);
         setModalContent(1);
         setIsModalOpen(!isModalOpen);
+      }, 1000);
+  }
+
+  const setPropsToGameOver = () => {
+    setLocalStorageProps();
+    let turnsUpdated: Turn[] = game.getTurns();
+    turnsUpdated.filter(turn => turn.isCurrentTurn() === true)[0].setCurrentTurn(false);
+    setGame(new Game(game.getWord(), turnsUpdated, game.getPastTurns()));
+    gameOver();
+  }
+
+  const setNextTurn = () => {
+    let turnsCopy: Turn[] = game.getTurns();
+    let pastTurn: Turn = turnsCopy.filter(turn => turn.isCurrentTurn() === true)[0];
+    turnsCopy[pastTurn.getId()].setCurrentTurn(false);
+    turnsCopy[pastTurn.getId() + 1].setCurrentTurn(true);
+    setGame(new Game(game.getWord(), turnsCopy, [...game.getPastTurns(), pastTurn]));
+  }
+
+  const updateKeyboard = () => {
+    let wrongAttempts: string[] = checkWrongAttempts();
+    let rightAttempts: string[] = checkRightAttempts();
+    if (wrongAttempts.length > 0 || rightAttempts.length > 0)
+      getNewKeyboard(wrongAttempts, rightAttempts, game.getTurns()[getCurrentTurn() - 1].getConcatenedAttempts());
+  }
+
+  const done = () => {
+    if (game.getTurns()[getCurrentTurn()].getConcatenedAttempts() === game.getWord()) setPropsToGameOver();
+    else {
+      if (game.getTurns()[getCurrentTurn()].getId() === game.getWord().length - 1) {
+        setPropsToGameOver();
         return;
       }
-      let turnsCopy: Turn[] = game.getTurns();
-      let pastTurn: Turn = turnsCopy.filter(turn => turn.isCurrentTurn() === true)[0];
-      turnsCopy[pastTurn.getId()].setCurrentTurn(false);
-      turnsCopy[pastTurn.getId() + 1].setCurrentTurn(true);
-      let wrongAttempts: string[] = checkWrongAttempts();
-      let rightAttempts: string[] = checkRightAttempts();
-      if (wrongAttempts.length > 0 || rightAttempts.length > 0) getNewKeyboard(wrongAttempts, rightAttempts, game.getTurns()[getCurrentTurn() - 1].getConcatenedAttempts());
-      setGame(new Game(game.getWord(), turnsCopy, [...game.getPastTurns(), pastTurn]));
+      setNextTurn();
+      updateKeyboard();
       setBlockKeyboard(!blockKeyboard);
     }
   }
@@ -244,19 +267,6 @@ function App() {
     let leftSecondsstr = leftSeconds.toString().length === 1 ? '0' + leftSeconds.toString() : leftSeconds.toString();
 
     setClock(leftHourstr.toString() + ':' + leftMinutesstr.toString() + ':' + leftSecondsstr);
-  }
-
-  const renderSquares = (squares: string[]) => {
-    let myResult: string =
-      `Esse foi o resultado do meu Só Letrando... 
-      ${squares.map((value, index) => {
-        return value === 'green' ? `🟩${index === 4 || index === 9 || index === 14 || index === 19 ? '\n' : ''}` :
-          value === 'red' ? `🟥${index === 4 || index === 9 || index === 14 || index === 19 ? '\n' : ''}` :
-            `🟨${index === 4 || index === 9 || index === 14 || index === 19 ? '\n' : ''}`;
-      })}
-
-    Consegue fazer melhor? Jogue em ...
-    `;
   }
 
   const shareResult = async () => {
