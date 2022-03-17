@@ -14,8 +14,13 @@
         width: 90vw!important;
     }
     .letter-btn {
-        width: 7vw!important;
+        width: 6vw!important;
         height: 10vw!important;
+        text-align: center!important;
+        color: black!important;
+    }
+    .letter-btn:hover {
+        transform: none!important;
     }
     .btn-actions {
         width: 68vw!important;
