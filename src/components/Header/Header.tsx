@@ -10,7 +10,7 @@ function Header(openModalAbout: () => void) {
                 </div>
             </div>
             <div className='game-name'>
-                SÓ LETRANDO...
+                SÓ LETRANDO
             </div>
             <div className='configs'>
             {/* <div className='configs-btn'>
