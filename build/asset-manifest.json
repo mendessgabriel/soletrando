@@ -1,0 +1,14 @@
+{
+  "files": {
+    "main.css": "/static/css/main.41252230.css",
+    "main.js": "/static/js/main.deab22ca.js",
+    "static/media/Fredoka-Medium.ttf": "/static/media/Fredoka-Medium.57d2822992b7b04d1b0f.ttf",
+    "index.html": "/index.html",
+    "main.41252230.css.map": "/static/css/main.41252230.css.map",
+    "main.deab22ca.js.map": "/static/js/main.deab22ca.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.41252230.css",
+    "static/js/main.deab22ca.js"
+  ]
+}

@@ -1,0 +1,22 @@
+@font-face {
+    font-family: Fredoka;
+    src: url('../../../fonts/Fredoka/Fredoka/static/Fredoka/Fredoka-Medium.ttf');
+  }
+
+.btn-done {
+    width: 15vw;
+    margin: 1rem;
+    cursor: pointer;
+    height: 2.5rem;
+    border: none;
+    font-size: x-large;
+    font-family: Fredoka;
+    border-bottom: 8px solid darkgreen;
+    border-radius: 5px;
+    color: white;
+    background: #6DD230;
+}
+
+.btn-done:hover {
+  transform: scale(1.2);
+}

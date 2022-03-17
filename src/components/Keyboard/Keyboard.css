@@ -1,0 +1,43 @@
+@font-face {
+    font-family: Fredoka;
+    src: url('../../fonts/Fredoka/Fredoka/static/Fredoka/Fredoka-Medium.ttf');
+  }
+
+.keyboard {
+    margin: 0 auto;
+    text-align: center;
+    border-radius: 5px;
+    width: 35vw;
+}
+
+.letter-btn {
+    width: 3vw;
+    height: 3vw;
+    font-family: Fredoka;
+    font-size: 19px;
+    border: none;
+    background: lightgray;
+    border-bottom: 8px solid darkgray;
+    margin: 0.2rem;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.letter-btn:hover {
+    transform: scale(1.1);
+}
+
+.red {
+    background: #FF5A60;
+    border-bottom: 8px solid darkred!important;
+}
+
+.green {
+    background: #6DD230;
+    border-bottom: 8px solid darkgreen!important;
+}
+
+.yellow {
+    background: #FACA00;
+    border-bottom: 8px solid goldenrod!important;
+}

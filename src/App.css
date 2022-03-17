@@ -1,38 +1,66 @@
-.App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+@media only screen and (max-width: 600px) {
+    .header {
+      height: 15vw!important;
+    }
+    .game-name {
+        font-size: x-large!important;
+    }
+    .about-btn {
+        font-size: medium!important;
+        height: 7vw!important;
+        width: 25vw!important;
+    }
+    .keyboard {
+        width: 90vw!important;
+    }
+    .letter-btn {
+        width: 7vw!important;
+        height: 10vw!important;
+    }
+    .btn-actions {
+        width: 68vw!important;
+    }
+    .btn-delete {
+        width: 25vw!important;
+    }
+    .btn-done {
+        width: 35vw!important;
+    }
+    .modal > .modal-overlay {
+        width: 95%!important;
+    }
+    .btn-close {
+        width: 35vw!important;
+        font-size: large!important;
+    }
+    .img-green {
+        background-size: 40vw!important;
+        height: 8vw!important;
+        width: 50%!important;
+    }
+    .img-yellow {
+        background-size: 40vw!important;
+        height: 8vw!important;
+        width: 50%!important;
+    }
+    .img-red {
+        background-size: 40vw!important;
+        height: 8vw!important;
+        width: 50%!important;
+    }
+    .footer-modal {
+        width: 90%!important;
+    }
+    .btn-share {
+        width: 45vw!important;
+        font-size: large!important;
+    }
   }
-}
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.btn-actions{
+    display: flex;
+    margin: 0 auto;
+    width: 26vw;
+    text-align: center;
+    cursor: pointer;
 }
