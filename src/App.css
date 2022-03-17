@@ -11,10 +11,10 @@
         width: 25vw!important;
     }
     .keyboard {
-        width: 90vw!important;
+        width: 80vw!important;
     }
     .letter-btn {
-        width: 4vw!important;
+        width: 6vw!important;
         height: 10vw!important;
         text-align: center!important;
         color: black!important;
@@ -26,7 +26,7 @@
         width: 68vw!important;
     }
     .btn-delete {
-        width: 25vw!important;
+        width: 35vw!important;
     }
     .btn-done {
         width: 35vw!important;
