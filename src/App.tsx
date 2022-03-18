@@ -287,7 +287,7 @@ function App() {
           value === 'red' ? `🟥${index === 4 || index === 9 || index === 14 || index === 19 ? '\n' : ''}` :
             `🟨${index === 4 || index === 9 || index === 14 || index === 19 ? '\n' : ''}`;
       })}
-    \nConsegue fazer melhor? Jogue em ...
+    \nConsegue fazer melhor? Jogue em soletrando.herokuapp.com
     `;
     let formatedString = myResult.replace(/,/g, '');
     await navigator.clipboard.writeText(formatedString);
