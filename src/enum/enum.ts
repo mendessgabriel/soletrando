@@ -8,3 +8,10 @@ export enum ModalContent {
     howToPlay = 0,
     endGameScreen = 1
 }
+
+export enum Theme {
+    default = 'Padrão',
+    sports = 'Esportes',
+    movies = 'Filmes',
+    names = 'Nomes',
+}

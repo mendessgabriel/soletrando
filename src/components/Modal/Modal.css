@@ -145,3 +145,12 @@
     margin: 0 auto;
     height: 5vw;
 }
+
+.img-theme {
+  background-image: url('../../imgs/img-theme.png');
+  background-repeat: no-repeat;
+    background-size: 25vw;
+    width: 55%;
+    margin: 0 auto;
+    height: 5vw;
+}

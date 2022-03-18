@@ -14,6 +14,8 @@ const HowToPlay = (closeModal: () => void) => {
                 <div className='img-yellow'></div>
                 <p>Caso a letra fique vermelha, indica que essa letra não está presente na palavra secreta.</p>
                 <div className='img-red'></div>
+                <p>Aqui você também pode escolher o tema da palavra secreta, basta selecionar um dos temas disponíveis no botão no canto superior direito da sua tela.</p>
+                <div className='img-theme'></div>
                 <br />
                 <p>Desenvolvido por <a href='https://www.instagram.com/gmrmendes/' target='_blank'>@gmrmendes</a></p>
                 <p>Versão brasileira não-oficial do <a href='https://www.nytimes.com/games/wordle/index.html' target='_blank'>Wordle</a></p>

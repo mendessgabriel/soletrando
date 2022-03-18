@@ -15,6 +15,10 @@ export default class Game {
         return this.word;
     }
 
+    public setWord = (newWord: string) => {
+        this.word = newWord;
+    }
+
     public getWordLength = (): number => {
         return this.word.length;
     }

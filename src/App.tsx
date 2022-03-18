@@ -14,6 +14,8 @@ import Modal from './components/Modal/Modal';
 import Game from './classes/Game/Game';
 import Turn from './classes/Turn/Turn';
 
+import { Theme } from './enum/enum';
+
 function App() {
   const [game, setGame] = useState<Game>(new Game('', [], []));
   const [libWord, setLibWord] = useState<LibWord[]>(wordlist);
@@ -27,6 +29,7 @@ function App() {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [modalContent, setModalContent] = useState<number>(0);
   const [isMessageScreenOpen, setIsMessageScreenOpen] = useState<boolean>(false);
+  const [theme, setTheme] = useState<string>(Theme.default);
 
   const getCurrentTurn = (): number => {
     let current: Turn = game.getTurns().filter(turn => turn.isCurrentTurn() === true)[0];
@@ -302,6 +305,41 @@ function App() {
     setIsModalOpen(false);
   }
 
+  const setNewTheme = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    let word: string;
+    let gameProps: Game = new Game('', [], []);
+    switch (e.target.value) {
+      case Theme.default:
+        word = libWord.filter(word => word.getDay() === getToday())[0].getValue();
+        gameProps.setWord(word);
+        break;
+      case Theme.sports:
+        word = libWord.filter(word => word.getDay() === getToday())[0].getSportWord();
+        gameProps.setWord(word);
+        break;
+      case Theme.movies:
+        word = libWord.filter(word => word.getDay() === getToday())[0].getMoviesWord();
+        gameProps.setWord(word);
+        break;
+      case Theme.names:
+        word = libWord.filter(word => word.getDay() === getToday())[0].getNamesWord();
+        gameProps.setWord(word);
+        break;
+      default:
+        word = libWord.filter(word => word.getDay() === getToday())[0].getValue();
+        gameProps.setWord(word);
+        break;
+    }
+    for (var i = 0; i < gameProps.getWordLength(); i++) {
+      let newTurn: Turn = new Turn(i, [], i === 0 ? true : false);
+      gameProps.addOneTurn(newTurn);
+    }
+    setBlockKeyboard(false);
+    if (isGameOver) setIsGameOver(false);
+    setGame(gameProps);
+    startKeyboard();
+  }
+
   useEffect(() => {
     let gameProps: Game = new Game(getDayWord(), [], []);
     setInterval(
@@ -317,7 +355,7 @@ function App() {
 
   return (
     <>
-      {Header(openModalAbout)}
+      {Header(openModalAbout, setNewTheme)}
       {GameTable(game, setPlayerAttempt)}
       {Keyboard(setPlayerAttempt, blockKeyboard, keyboardProps)}
       <div className='btn-actions'>

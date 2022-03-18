@@ -1,7 +1,13 @@
 import React from 'react';
 import './Header.css';
 
-function Header(openModalAbout: () => void) {
+import { Theme } from '../../enum/enum';
+
+function Header(openModalAbout: () => void, setNewTheme: (e: React.ChangeEvent<HTMLSelectElement>) => void) {
+    const checkTheme = (e: React.ChangeEvent<HTMLSelectElement>) => {
+
+    }
+
     return (
         <div className='header'>
             <div className='about'>
@@ -12,10 +18,14 @@ function Header(openModalAbout: () => void) {
             <div className='game-name'>
                 SÓ LETRANDO
             </div>
-            <div className='configs'>
-            {/* <div className='configs-btn'>
-                    configs
-                </div> */}
+            <div className='theme'>
+                <label htmlFor='theme-btn' className='label-theme'>tema</label>
+                <select onChange={setNewTheme} name='theme-btn' id='theme-btn' className='theme-btn'>
+                    <option style={{background: 'black'}} value={Theme.default}>{Theme.default}</option>
+                    <option value={Theme.sports}>{Theme.sports}</option>
+                    <option style={{background: 'black'}} value={Theme.movies}>{Theme.movies}</option>
+                    <option value={Theme.names}>{Theme.names}</option>
+                </select>
             </div>
         </div>
     );

@@ -65,6 +65,17 @@
     .message-screen {
         width: 85vw!important;
     }
+    .theme-btn {
+        height: 9vw!important;
+        margin: 0.5rem!important;
+        width: 25vw!important;
+    }
+    .label-theme {
+        display: none!important;
+    }
+    .theme {
+        text-align: none!important;
+    }
   }
 
 .btn-actions{
