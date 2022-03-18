@@ -62,6 +62,9 @@
         width: 70vw!important;
         font-size: large!important;
     }
+    .message-screen {
+        width: 85vw!important;
+    }
   }
 
 .btn-actions{

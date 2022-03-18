@@ -2,8 +2,10 @@ import React, { useState, useEffect } from 'react';
 import './App.css';
 
 import DeleteLetterButton from './components/Buttons/DeleteLetterButton/DeleteLetterButton';
+import MessageScreen from './components/MessageScreen/MessageScreen';
 import KeyboardLetter from './classes/KeyboardLetter/KeyboardLetter';
 import DoneButton from './components/Buttons/DoneButton/DoneButton';
+import { wordlist, words } from './dictionary/dictionary';
 import GameTable from './components/GameTable/GameTable';
 import Keyboard from './components/Keyboard/Keyboard';
 import Header from './components/Header/Header';
@@ -14,24 +16,7 @@ import Turn from './classes/Turn/Turn';
 
 function App() {
   const [game, setGame] = useState<Game>(new Game('', [], []));
-  const [libWord, setLibWord] = useState<LibWord[]>([
-    new LibWord('2022-03-16', 'GARFO'),
-    new LibWord('2022-03-17', 'NAVIO'),
-    new LibWord('2022-03-18', 'ENTRE'),
-    new LibWord('2022-03-19', 'BRAVA'),
-    new LibWord('2022-03-20', 'SOLDA'),
-    new LibWord('2022-03-21', 'LINDO'),
-    new LibWord('2022-03-22', 'BANHO'),
-    new LibWord('2022-03-23', 'CINTO'),
-    new LibWord('2022-03-24', 'VELAS'),
-    new LibWord('2022-03-25', 'MENOS'),
-    new LibWord('2022-03-26', 'CALDA'),
-    new LibWord('2022-03-26', 'PORTO'),
-    new LibWord('2022-03-28', 'REMAR'),
-    new LibWord('2022-03-29', 'MALHO'),
-    new LibWord('2022-03-30', 'PINHO'),
-    new LibWord('2022-03-31', 'NAVIO'),
-    new LibWord('2022-04-01', 'BOTAR'),]);
+  const [libWord, setLibWord] = useState<LibWord[]>(wordlist);
   const [blockKeyboard, setBlockKeyboard] = useState<boolean>(false);
   const keyboard1: string[] = ['Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P'];
   const keyboard2: string[] = ['A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L'];
@@ -41,6 +26,7 @@ function App() {
   const [clock, setClock] = useState<string>('');
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [modalContent, setModalContent] = useState<number>(0);
+  const [isMessageScreenOpen, setIsMessageScreenOpen] = useState<boolean>(false);
 
   const getCurrentTurn = (): number => {
     let current: Turn = game.getTurns().filter(turn => turn.isCurrentTurn() === true)[0];
@@ -85,7 +71,7 @@ function App() {
 
   const getYellowLetters = (rightAttempts: string[], wrongAttempts: string[], formattedKey: KeyboardLetter[], attempt: string) => {
     for (var i = 0; i < attempt.length; i++) {
-     if (game.getWord().includes(attempt[i]) && game.getWord()[i] !== attempt[i]) {
+      if (game.getWord().includes(attempt[i]) && game.getWord()[i] !== attempt[i]) {
         let keyLetter: KeyboardLetter = new KeyboardLetter(
           keyboardProps.filter(prop => prop.getValue() === attempt[i])[0].getId(),
           attempt[i], 'letter-btn yellow', false);
@@ -189,7 +175,23 @@ function App() {
       getNewKeyboard(wrongAttempts, rightAttempts, game.getTurns()[getCurrentTurn() - 1].getConcatenedAttempts());
   }
 
+  const alertPlayerThatAttemptDoesNotExists = () => {
+    setIsMessageScreenOpen(!isMessageScreenOpen);
+  }
+
+  const checkIfAttemptIsValid = (): boolean => {
+    if (words.filter(word => word.normalize('NFD').replace(/[\u0300-\u036f]/g, "").toUpperCase() === game.getTurns()[getCurrentTurn()].getConcatenedAttempts()).length === 0)
+      return true;
+
+    return false;
+  }
+
   const done = () => {
+    if (checkIfAttemptIsValid()) {
+      alertPlayerThatAttemptDoesNotExists();
+      return;
+    }
+
     if (game.getTurns()[getCurrentTurn()].getConcatenedAttempts() === game.getWord()) setPropsToGameOver();
     else {
       if (game.getTurns()[getCurrentTurn()].getId() === game.getWord().length - 1) {
@@ -323,6 +325,7 @@ function App() {
         {!isGameOver && DoneButton(done)}
       </div>
       {isModalOpen && Modal(closeModal, shareResult, modalContent, clock, game)}
+      {isMessageScreenOpen && MessageScreen(alertPlayerThatAttemptDoesNotExists)}
     </>
   );
 }
