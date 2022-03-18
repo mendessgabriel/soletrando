@@ -4,21 +4,32 @@ import './TurnTable.css';
 import Turn from '../../classes/Turn/Turn';
 
 function TurnTable(turn: Turn, word: string) {
-    const checkIfPlayerSelectRigthLetter = (index: number): string => {
+    const setSquareCollor = (positionIndexAttempt: number): string => {
         let style: string = 'attempt gray';
-        let attempt: string = turn.getOneAttempt(index);
-        if (word.includes(attempt)) {
-            if (word[index] === attempt) style = 'attempt green';
-            else {
-                let counter: number = 0;
-                for (var i = 0; i < turn.getAttempts().length; i++) {
-                    if (turn.getAttempts()[i] === attempt) counter++;
-                }
-                if (counter > 1) style = 'attempt red';
-                else style ='attempt yellow';
+        let attempt: string = turn.getOneAttempt(positionIndexAttempt);
+        if (!turn.getOneAttempt(positionIndexAttempt)) return style;
+        if (!word.includes(attempt)) {
+            style = 'attempt red';
+            return style;
+        }
+        else if (word[positionIndexAttempt] === attempt) {
+            style = 'attempt green';
+            return style;
+        }
+        if (turn.getAttempts().filter(att => att === attempt).length > 1) {
+            let indexInWord: number[] = [];
+            for (var i = 0; i < word.length; i++) {
+                if (word[i] === attempt) indexInWord.push(i);
+            }
+            for (var i = 0; i < indexInWord.length; i++) {
+                if (turn.getAttempts()[indexInWord[i]] === word[indexInWord[i]])
+                    style = 'attempt red';
+                else style = 'attempt yellow';
+                return style;
             }
         } else {
-            if (turn.getAttempts().length >= 5) style = 'attempt red';
+            style = 'attempt yellow';
+            return style;
         }
         return style;
     }
@@ -27,7 +38,7 @@ function TurnTable(turn: Turn, word: string) {
         let attempts: JSX.Element[] = [];
         for (var i = 0; i < word.length; i++) {
             attempts.push(
-                <div key={i} className={!turn.isCurrentTurn() ? checkIfPlayerSelectRigthLetter(i) : 'attempt gray'}>
+                <div key={i} className={!turn.isCurrentTurn() ? setSquareCollor(i) : 'attempt gray'}>
                     {turn.getOneAttempt(i)}
                 </div>)
         }
