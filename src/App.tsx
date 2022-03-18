@@ -16,7 +16,7 @@ function App() {
   const [game, setGame] = useState<Game>(new Game('', [], []));
   const [libWord, setLibWord] = useState<LibWord[]>([
     new LibWord('2022-03-16', 'GARFO'),
-    new LibWord('2022-03-17', 'CRETA'),
+    new LibWord('2022-03-17', 'NAVIO'),
     new LibWord('2022-03-18', 'ENTRE'),
     new LibWord('2022-03-19', 'BRAVA'),
     new LibWord('2022-03-20', 'SOLDA'),
