@@ -55,6 +55,11 @@
         height: 8vw!important;
         width: 50%!important;
     }
+    .img-theme {
+        background-size: 40vw!important;
+        height: 8vw!important;
+        width: 50%!important;
+    }
     .footer-modal {
         width: 90%!important;
     }
