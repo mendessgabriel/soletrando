@@ -17,6 +17,8 @@ import Turn from './classes/Turn/Turn';
 import { Theme } from './enum/enum';
 
 function App() {
+  //VERIFICAR SE POSSO CRIAR UMA CHANCE A MAIS EM CASO DO JOGADOR JUNTAR PONTOS, EXEMPLO: 
+  //AMARELO VALE 1 PONTO E VERDE VALE 3, SE O JOGADOR ATINGIR 15 PONTOS ELE TEM DIREITO A UMA CHANCE A MAIS
   const [game, setGame] = useState<Game>(new Game('', [], []));
   const [libWord, setLibWord] = useState<LibWord[]>(wordlist);
   const [blockKeyboard, setBlockKeyboard] = useState<boolean>(false);
@@ -197,7 +199,7 @@ function App() {
 
     if (game.getTurns()[getCurrentTurn()].getConcatenedAttempts() === game.getWord()) setPropsToGameOver();
     else {
-      if (game.getTurns()[getCurrentTurn()].getId() === game.getWord().length - 1) {
+      if (game.getTurns()[getCurrentTurn()].getId() === game.getWord().length) {
         setPropsToGameOver();
         return;
       }
@@ -345,11 +347,12 @@ function App() {
     setInterval(
       () => defineClock(), 1000)
 
-    for (var i = 0; i < gameProps.getWordLength(); i++) {
+    for (var i = 0; i < gameProps.getWordLength() + 1; i++) {
       let newTurn: Turn = new Turn(i, [], i === 0 ? true : false);
       gameProps.addOneTurn(newTurn);
     }
     setGame(gameProps);
+    console.log(gameProps)
     startKeyboard();
   }, []);
 
