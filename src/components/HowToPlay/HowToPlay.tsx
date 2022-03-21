@@ -19,7 +19,7 @@ const HowToPlay = (closeModal: () => void) => {
                 <br />
                 <p>Desenvolvido por <a href='https://www.instagram.com/gmrmendes/' target='_blank'>@gmrmendes</a></p>
                 <p>Versão brasileira não-oficial do <a href='https://www.nytimes.com/games/wordle/index.html' target='_blank'>Wordle</a></p>
-                <p>powered by React & Heroku</p>
+                <p>powered by React & GitHub Pages</p>
             </main>
             <footer className='footer-modal'>
                 <button className='btn-close' onClick={closeModal}>Fechar</button>

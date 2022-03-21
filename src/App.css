@@ -49,6 +49,9 @@
         width: 35vw!important;
         font-size: large!important;
     }
+    .btn-close:hover {
+        transform: none!important;
+    }
     .img-green {
         background-size: 40vw!important;
         height: 8vw!important;
@@ -75,6 +78,9 @@
     .btn-share {
         width: 70vw!important;
         font-size: large!important;
+    }
+    .btn-share:hover {
+        transform: none!important;
     }
     .message-screen {
         width: 85vw!important;

@@ -293,7 +293,7 @@ function App() {
           value === 'red' ? `🟥${index === 4 || index === 9 || index === 14 || index === 19 ? '\n' : ''}` :
             `🟨${index === 4 || index === 9 || index === 14 || index === 19 ? '\n' : ''}`;
       })}
-    \nConsegue fazer melhor? Jogue em soletrando.herokuapp.com
+    \nConsegue fazer melhor? Jogue em https://mendessgabriel.github.io/soletrando/
     `;
     let formatedString = myResult.replace(/,/g, '');
     navigator.clipboard.writeText(formatedString);
