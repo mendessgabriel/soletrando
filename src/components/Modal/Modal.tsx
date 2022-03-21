@@ -5,7 +5,7 @@ import HowToPlay from '../HowToPlay/HowToPlay';
 import EndGameView from '../EndGameView/EndGameView';
 import Game from "../../classes/Game/Game";
 
-const Modal = (closeModal: () => void, shareResult: () => void, modalContent: number, date: string, game: Game) => {
+const Modal = (closeModal: () => void, shareResult: () => void, modalContent: number, date: string, game: Game, isResultCopied: boolean) => {
     const render = (): JSX.Element => {
         let content: JSX.Element;
         switch (modalContent) {
@@ -13,7 +13,7 @@ const Modal = (closeModal: () => void, shareResult: () => void, modalContent: nu
                 content = HowToPlay(closeModal);
                 break;
             case 1:
-                content = EndGameView(closeModal, shareResult, date, game);
+                content = EndGameView(closeModal, shareResult, date, game, isResultCopied);
                 break;
             default:
                 content = <></>;

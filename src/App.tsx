@@ -32,6 +32,7 @@ function App() {
   const [modalContent, setModalContent] = useState<number>(0);
   const [isMessageScreenOpen, setIsMessageScreenOpen] = useState<boolean>(false);
   const [theme, setTheme] = useState<string>(Theme.default);
+  const [isResultCopied, setIsResultCopied] = useState<boolean>(false);
 
   const getCurrentTurn = (): number => {
     let current: Turn = game.getTurns().filter(turn => turn.isCurrentTurn() === true)[0];
@@ -276,7 +277,7 @@ function App() {
     setClock(leftHourstr.toString() + ':' + leftMinutesstr.toString() + ':' + leftSecondsstr);
   }
 
-  const shareResult = async () => {
+  const shareResult = () => {
     let squares = []
     for (var i = 0; i < game.getTurns().length; i++) {
       for (var l = 0; l < game.getTurns()[i].getAttempts().length; l++) {
@@ -295,7 +296,8 @@ function App() {
     \nConsegue fazer melhor? Jogue em soletrando.herokuapp.com
     `;
     let formatedString = myResult.replace(/,/g, '');
-    await navigator.clipboard.writeText(formatedString);
+    navigator.clipboard.writeText(formatedString);
+    setIsResultCopied(true)
   }
 
   const openModalAbout = () => {
@@ -365,7 +367,7 @@ function App() {
         {!isGameOver && DeleteLetterButton(deleteLastLetter)}
         {!isGameOver && DoneButton(done)}
       </div>
-      {isModalOpen && Modal(closeModal, shareResult, modalContent, clock, game)}
+      {isModalOpen && Modal(closeModal, shareResult, modalContent, clock, game, isResultCopied)}
       {isMessageScreenOpen && MessageScreen(alertPlayerThatAttemptDoesNotExists)}
     </>
   );

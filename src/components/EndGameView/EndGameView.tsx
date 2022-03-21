@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Game from "../../classes/Game/Game";
 import './EndGameView.css';
 
-const EndGameView = (closeModal: () => void, shareResult: () => void, date: string, game: Game) => {
+const EndGameView = (closeModal: () => void, shareResult: () => void, date: string, game: Game, isResultCopied: boolean) => {
     let localStorage = window.localStorage;
 
     const getGamePlayerData = (): string => {
@@ -89,7 +89,7 @@ const EndGameView = (closeModal: () => void, shareResult: () => void, date: stri
             </section>
             <footer className='footer-modal' style={{ width: '40vw', margin: '0px 10%'}}>
                 <button className='btn-close' onClick={closeModal}>Fechar</button>
-                <button className='btn-share' onClick={shareResult}>Copiar resultado</button>
+                <button className='btn-share' onClick={shareResult}>{isResultCopied ? 'Copiado' : 'Copiar resultado'}</button>
             </footer>
         </div>
     );
