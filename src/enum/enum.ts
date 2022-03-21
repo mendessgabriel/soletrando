@@ -12,6 +12,6 @@ export enum ModalContent {
 export enum Theme {
     default = 'Padrão',
     sports = 'Esportes',
-    movies = 'Filmes',
+    objects = 'Objetos',
     names = 'Nomes',
 }

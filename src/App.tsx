@@ -321,8 +321,8 @@ function App() {
         word = libWord.filter(word => word.getDay() === getToday())[0].getSportWord();
         gameProps.setWord(word);
         break;
-      case Theme.movies:
-        word = libWord.filter(word => word.getDay() === getToday())[0].getMoviesWord();
+      case Theme.objects:
+        word = libWord.filter(word => word.getDay() === getToday())[0].getObjectsWord();
         gameProps.setWord(word);
         break;
       case Theme.names:

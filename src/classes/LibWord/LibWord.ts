@@ -2,14 +2,14 @@ export default class LibWord {
     day: string;
     value: string;
     sportWord: string;
-    moviesWord: string;
+    objectWord: string;
     namesWord: string;
 
-    constructor (Day: string, Value: string, SportWord: string, MoviesWord: string, NamesWord: string) {
+    constructor (Day: string, Value: string, SportWord: string, ObjectWord: string, NamesWord: string) {
         this.day = Day;
         this.value = Value;
         this.sportWord = SportWord;
-        this.moviesWord = MoviesWord;
+        this.objectWord = ObjectWord;
         this.namesWord = NamesWord;
     }
 
@@ -33,8 +33,8 @@ export default class LibWord {
         return this.sportWord;
     }
 
-    public getMoviesWord = (): string => {
-        return this.moviesWord;
+    public getObjectsWord = (): string => {
+        return this.objectWord;
     }
 
     public getNamesWord = (): string => {

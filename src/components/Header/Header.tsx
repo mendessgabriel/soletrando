@@ -23,7 +23,7 @@ function Header(openModalAbout: () => void, setNewTheme: (e: React.ChangeEvent<H
                 <select onChange={setNewTheme} name='theme-btn' id='theme-btn' className='theme-btn'>
                     <option style={{background: 'black'}} value={Theme.default}>{Theme.default}</option>
                     <option value={Theme.sports}>{Theme.sports}</option>
-                    <option style={{background: 'black'}} value={Theme.movies}>{Theme.movies}</option>
+                    <option style={{background: 'black'}} value={Theme.objects}>{Theme.objects}</option>
                     <option value={Theme.names}>{Theme.names}</option>
                 </select>
             </div>

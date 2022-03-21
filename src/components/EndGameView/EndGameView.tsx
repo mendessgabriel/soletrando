@@ -81,6 +81,10 @@ const EndGameView = (closeModal: () => void, shareResult: () => void, date: stri
                     <div style={{ marginRight: '0.9rem' }}>5.</div>
                     <div style={{ width: getBarPercetInLocalStorage(4)}} className='bar'>{getBarPercetInLocalStorage(4, true)}</div>
                 </div>
+                <div style={{ display: 'flex', margin:'10px 0px' }}>
+                    <div style={{ marginRight: '0.9rem' }}>6.</div>
+                    <div style={{ width: getBarPercetInLocalStorage(5)}} className='bar'>{getBarPercetInLocalStorage(5, true)}</div>
+                </div>
             </section>
             <section className='secret-word-time'>
                 <div>A palavra secreta era: {game.getWord()}</div>
