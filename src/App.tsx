@@ -354,7 +354,6 @@ function App() {
       gameProps.addOneTurn(newTurn);
     }
     setGame(gameProps);
-    console.log(gameProps)
     startKeyboard();
   }, []);
 
