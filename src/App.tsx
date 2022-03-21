@@ -332,7 +332,7 @@ function App() {
         gameProps.setWord(word);
         break;
     }
-    for (var i = 0; i < gameProps.getWordLength(); i++) {
+    for (var i = 0; i < gameProps.getWordLength() + 1; i++) {
       let newTurn: Turn = new Turn(i, [], i === 0 ? true : false);
       gameProps.addOneTurn(newTurn);
     }
