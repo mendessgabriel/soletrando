@@ -10,6 +10,9 @@
         height: 7vw!important;
         width: 25vw!important;
     }
+    .about-btn:hover {
+        transform: none!important;
+    }
     .keyboard {
         width: 100vw!important;
     }
@@ -30,8 +33,14 @@
     .btn-delete {
         width: 35vw!important;
     }
+    .btn-delete:hover {
+        transform: none!important;
+    }
     .btn-done {
         width: 35vw!important;
+    }
+    .btn-done:hover {
+        transform: none!important;
     }
     .modal > .modal-overlay {
         width: 95%!important;
