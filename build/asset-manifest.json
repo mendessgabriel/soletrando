@@ -1,14 +1,14 @@
 {
   "files": {
-    "main.css": "/soletrando/static/css/main.0db0dc7d.css",
-    "main.js": "/soletrando/static/js/main.afa0a535.js",
+    "main.css": "/soletrando/static/css/main.044bc196.css",
+    "main.js": "/soletrando/static/js/main.3a63d640.js",
     "static/media/Fredoka-Medium.ttf": "/soletrando/static/media/Fredoka-Medium.57d2822992b7b04d1b0f.ttf",
     "index.html": "/soletrando/index.html",
-    "main.0db0dc7d.css.map": "/soletrando/static/css/main.0db0dc7d.css.map",
-    "main.afa0a535.js.map": "/soletrando/static/js/main.afa0a535.js.map"
+    "main.044bc196.css.map": "/soletrando/static/css/main.044bc196.css.map",
+    "main.3a63d640.js.map": "/soletrando/static/js/main.3a63d640.js.map"
   },
   "entrypoints": [
-    "static/css/main.0db0dc7d.css",
-    "static/js/main.afa0a535.js"
+    "static/css/main.044bc196.css",
+    "static/js/main.3a63d640.js"
   ]
 }
