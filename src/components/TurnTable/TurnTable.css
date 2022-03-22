@@ -1,3 +1,8 @@
+@keyframes example {
+    from {transform: rotate(0)}
+    to {transform: rotate(190)}
+  }
+
 .turn-table {
     display: flex;
     width: 100%;
@@ -11,6 +16,8 @@
 
 .red {
     background: #FF5A60;
+    animation-name: example;
+  animation-duration: 4s;
 }
 
 .green {
