@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import './MessageScreen.css';
 
 function MessageScreen(closeModal: () => void) {

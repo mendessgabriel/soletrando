@@ -3,6 +3,57 @@
     to {transform: rotate(190)}
   }
 
+  @keyframes fadeInChangeRedColor {
+	0% {
+		background: #141414;
+        border-bottom: 8px solid rgb(17, 17, 17);
+	}
+	100% {
+		background: #FF5A60;
+        border-bottom: 8px solid darkred!important;
+	}
+}
+
+@keyframes fadeInChangeGreenColor {
+	0% {
+		background: #141414;
+        border-bottom: 8px solid rgb(17, 17, 17);
+	}
+	100% {
+		background: #6DD230;
+        border-bottom: 8px solid darkgreen!important;
+	}
+}
+
+@keyframes fadeInChangeYellowColor {
+	0% {
+		background: #141414;
+        border-bottom: 8px solid rgb(17, 17, 17);
+	}
+	100% {
+		background: #FACA00;
+        border-bottom: 8px solid goldenrod!important;
+	}
+}
+
+@keyframes shake {
+    10%, 90% {
+      transform: translate3d(-1px, 0, 0);
+    }
+    
+    20%, 80% {
+      transform: translate3d(2px, 0, 0);
+    }
+  
+    30%, 50%, 70% {
+      transform: translate3d(-4px, 0, 0);
+    }
+  
+    40%, 60% {
+      transform: translate3d(4px, 0, 0);
+    }
+  }
+
 .turn-table {
     display: flex;
     width: 100%;
@@ -14,18 +65,26 @@
     border-bottom: 8px solid rgb(17, 17, 17);
 }
 
-.red {
+.redCard {
     background: #FF5A60;
-    animation-name: example;
-  animation-duration: 4s;
+    border-bottom: 8px solid darkred!important;
+    animation-name: fadeInChangeRedColor;
+    animation-duration: 0.6s;
+    /* animation: shake 0.8s cubic-bezier(.36,.07,.19,.97) both */
 }
 
-.green {
+.greenCard {
     background: #6DD230;
+    animation-name: fadeInChangeGreenColor;
+    animation-duration: 0.6s;
+    border-bottom: 8px solid darkgreen!important;
 }
 
-.yellow {
+.yellowCard {
     background: #FACA00;
+    animation-name: fadeInChangeYellowColor;
+    animation-duration: 0.6s;
+    border-bottom: 8px solid goldenrod!important;
 }
 
 .attempt {

@@ -28,9 +28,6 @@
     cursor: pointer;
 }
 
-.about-btn:hover {
-    transform: scale(1.1);
-}
 
 .game-name {
     width: 33.3%;

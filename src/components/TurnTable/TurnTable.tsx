@@ -9,11 +9,11 @@ function TurnTable(turn: Turn, word: string) {
         let attempt: string = turn.getOneAttempt(positionIndexAttempt);
         if (!turn.getOneAttempt(positionIndexAttempt)) return style;
         if (!word.includes(attempt)) {
-            style = 'attempt red';
+            style = 'attempt redCard';
             return style;
         }
         else if (word[positionIndexAttempt] === attempt) {
-            style = 'attempt green';
+            style = 'attempt greenCard';
             return style;
         }
         if (turn.getAttempts().filter(att => att === attempt).length > 1) {
@@ -23,12 +23,12 @@ function TurnTable(turn: Turn, word: string) {
             }
             for (var i = 0; i < indexInWord.length; i++) {
                 if (turn.getAttempts()[indexInWord[i]] === word[indexInWord[i]])
-                    style = 'attempt red';
-                else style = 'attempt yellow';
+                    style = 'attempt redCard';
+                else style = 'attempt yellowCard';
                 return style;
             }
         } else {
-            style = 'attempt yellow';
+            style = 'attempt yellowCard';
             return style;
         }
         return style;
