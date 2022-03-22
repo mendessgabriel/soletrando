@@ -14,7 +14,7 @@ const HowToPlay = (closeModal: () => void) => {
                 <div className='img-yellow'></div>
                 <p>Caso a letra fique vermelha, indica que essa letra não está presente na palavra secreta.</p>
                 <div className='img-red'></div>
-                <p>Você terá direito a mais uma rodada se encontrar 9 letras que existam na palavra secreta, seja ela verde ou amarela. Um ícone de '+ 1' aparecerá e clicando nele, uma nova rodada será criada.</p>
+                <p>Você terá direito a mais uma rodada se encontrar 10 letras que existam na palavra secreta, seja ela verde ou amarela. Um ícone de '+ 1' aparecerá e clicando nele, uma nova rodada será criada.</p>
                 <div className='img-chance'></div>
                 <p>Aqui você também pode escolher o tema da palavra secreta, basta selecionar um dos temas disponíveis no botão no canto superior direito da sua tela.</p>
                 <div className='img-theme'></div>

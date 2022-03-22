@@ -207,6 +207,10 @@ function App() {
         setPropsToGameOver();
         return;
       }
+      if (game.getTurns()[getCurrentTurn()].getId() === game.getWord().length + 1 && oneMoreAttemptCalled) {
+        setPropsToGameOver();
+        return;
+      }
       setNextTurn();
       updateKeyboard();
       setBlockKeyboard(!blockKeyboard);
@@ -292,9 +296,9 @@ function App() {
     let myResult: string =
       `Esse foi o resultado do meu Só Letrando... 
       \n${squares.map((value, index) => {
-        return value === 'green' ? `🟩${index === 4 || index === 9 || index === 14 || index === 19 || index === 24 ? '\n' : ''}` :
-          value === 'red' ? `🟥${index === 4 || index === 9 || index === 14 || index === 19 || index === 24 ? '\n' : ''}` :
-            `🟨${index === 4 || index === 9 || index === 14 || index === 19 || index === 24 ? '\n' : ''}`;
+        return value === 'green' ? `🟩${index === 4 || index === 9 || index === 14 || index === 19 || index === 24 || index === 29 ? '\n' : ''}` :
+          value === 'red' ? `🟥${index === 4 || index === 9 || index === 14 || index === 19 || index === 24 || index === 29 ? '\n' : ''}` :
+            `🟨${index === 4 || index === 9 || index === 14 || index === 19 || index === 24 || index === 29 ? '\n' : ''}`;
       })}
     \nConsegue fazer melhor? Jogue em https://mendessgabriel.github.io/soletrando/
     `;
@@ -382,7 +386,7 @@ function App() {
         {!isGameOver && DeleteLetterButton(deleteLastLetter)}
         {!isGameOver && DoneButton(done)}
       </div>
-      {points >= 18 && oneMoreChance()}
+      {points >= 20 && oneMoreChance()}
       {isModalOpen && Modal(closeModal, shareResult, modalContent, clock, game, isResultCopied)}
       {isMessageScreenOpen && MessageScreen(alertPlayerThatAttemptDoesNotExists)}
     </>
