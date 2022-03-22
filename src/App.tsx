@@ -17,8 +17,6 @@ import Turn from './classes/Turn/Turn';
 import { Theme } from './enum/enum';
 
 function App() {
-  //VERIFICAR SE POSSO CRIAR UMA CHANCE A MAIS EM CASO DO JOGADOR JUNTAR PONTOS, EXEMPLO: 
-  //AMARELO VALE 1 PONTO E VERDE VALE 3, SE O JOGADOR ATINGIR 15 PONTOS ELE TEM DIREITO A UMA CHANCE A MAIS
   const [game, setGame] = useState<Game>(new Game('', [], []));
   const [libWord, setLibWord] = useState<LibWord[]>(wordlist);
   const [blockKeyboard, setBlockKeyboard] = useState<boolean>(false);
@@ -31,8 +29,9 @@ function App() {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [modalContent, setModalContent] = useState<number>(0);
   const [isMessageScreenOpen, setIsMessageScreenOpen] = useState<boolean>(false);
-  const [theme, setTheme] = useState<string>(Theme.default);
   const [isResultCopied, setIsResultCopied] = useState<boolean>(false);
+  const [points, setPoints] = useState<number>(0);
+  const [oneMoreAttemptCalled, setOneMoreAttemptCalled] = useState<boolean>(false);
 
   const getCurrentTurn = (): number => {
     let current: Turn = game.getTurns().filter(turn => turn.isCurrentTurn() === true)[0];
@@ -177,6 +176,10 @@ function App() {
   const updateKeyboard = () => {
     let wrongAttempts: string[] = checkWrongAttempts();
     let rightAttempts: string[] = checkRightAttempts();
+    let pointsTurn: number  = 0;
+    for (var i = 0; i < rightAttempts.length; i++) pointsTurn++
+    pointsTurn = points + (2*pointsTurn);
+    if (pointsTurn > 0) setPoints(pointsTurn);
     if (wrongAttempts.length > 0 || rightAttempts.length > 0)
       getNewKeyboard(wrongAttempts, rightAttempts, game.getTurns()[getCurrentTurn() - 1].getConcatenedAttempts());
   }
@@ -200,7 +203,7 @@ function App() {
 
     if (game.getTurns()[getCurrentTurn()].getConcatenedAttempts() === game.getWord()) setPropsToGameOver();
     else {
-      if (game.getTurns()[getCurrentTurn()].getId() === game.getWord().length) {
+      if (game.getTurns()[getCurrentTurn()].getId() === game.getWord().length && !oneMoreAttemptCalled) {
         setPropsToGameOver();
         return;
       }
@@ -289,9 +292,9 @@ function App() {
     let myResult: string =
       `Esse foi o resultado do meu Só Letrando... 
       \n${squares.map((value, index) => {
-        return value === 'green' ? `🟩${index === 4 || index === 9 || index === 14 || index === 19 ? '\n' : ''}` :
-          value === 'red' ? `🟥${index === 4 || index === 9 || index === 14 || index === 19 ? '\n' : ''}` :
-            `🟨${index === 4 || index === 9 || index === 14 || index === 19 ? '\n' : ''}`;
+        return value === 'green' ? `🟩${index === 4 || index === 9 || index === 14 || index === 19 || index === 24 ? '\n' : ''}` :
+          value === 'red' ? `🟥${index === 4 || index === 9 || index === 14 || index === 19 || index === 24 ? '\n' : ''}` :
+            `🟨${index === 4 || index === 9 || index === 14 || index === 19 || index === 24 ? '\n' : ''}`;
       })}
     \nConsegue fazer melhor? Jogue em https://mendessgabriel.github.io/soletrando/
     `;
@@ -344,6 +347,19 @@ function App() {
     startKeyboard();
   }
 
+  const addOneMoreChanceInTable = () => {
+    let gameProps: Game = new Game(game.getWord(), game.getTurns(), game.getPastTurns());
+    gameProps.addOneTurn(new Turn(game.getTurns().length, [], false));
+    setGame(gameProps);
+    setPoints(0);
+    setOneMoreAttemptCalled(true);
+  }
+
+  const oneMoreChance = (): JSX.Element => {
+    let element: JSX.Element = <div className='one-more-chance' onClick={addOneMoreChanceInTable}><p style={{margin: '1rem'}}>+ 1</p></div>;
+    return element;
+  }
+
   useEffect(() => {
     let gameProps: Game = new Game(getDayWord(), [], []);
     setInterval(
@@ -366,6 +382,7 @@ function App() {
         {!isGameOver && DeleteLetterButton(deleteLastLetter)}
         {!isGameOver && DoneButton(done)}
       </div>
+      {points >= 18 && oneMoreChance()}
       {isModalOpen && Modal(closeModal, shareResult, modalContent, clock, game, isResultCopied)}
       {isMessageScreenOpen && MessageScreen(alertPlayerThatAttemptDoesNotExists)}
     </>

@@ -96,6 +96,11 @@
     .theme {
         text-align: none!important;
     }
+    .one-more-chance {
+        height: 16vw!important;
+        width: 17vw!important;
+        font-size: xx-large!important;
+    }
   }
 
 .btn-actions{
@@ -104,4 +109,19 @@
     width: 26vw;
     text-align: center;
     cursor: pointer;
+}
+
+.one-more-chance {
+    position: fixed;
+    bottom: 1rem;
+    height: 5vw;
+    width: 5vw;
+    background: #1C1C1C;
+    text-align: center;
+    font-size: x-large;
+    color: white;
+    cursor: pointer;
+    right: 1rem;
+    border: 8px solid #6DD230;
+    border-radius: 40px;
 }
