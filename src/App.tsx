@@ -364,6 +364,21 @@ function App() {
     return element;
   }
 
+  const setKeyOnTurnAttempt = (e: React.KeyboardEvent<HTMLDivElement>) => {
+    
+    e.stopPropagation();
+    let turns: Turn[] = game.getTurns();
+    let currentTurn: Turn = turns.filter(turn => turn.isCurrentTurn())[0];
+    currentTurn.getAttempts()[currentTurn.getAttempts().length] = e.key.toUpperCase();
+    if (currentTurn.getAttempts().length === game.getWord().length) {
+      setBlockKeyboard(!blockKeyboard)
+      return;
+    } else {
+      let gameProps: Game = new Game(game.getWord(), turns, game.getPastTurns());
+      setGame(gameProps);
+    }
+  }
+
   useEffect(() => {
     let gameProps: Game = new Game(getDayWord(), [], []);
     setInterval(
@@ -378,7 +393,7 @@ function App() {
   }, []);
 
   return (
-    <>
+    <div tabIndex={0} onKeyDown={setKeyOnTurnAttempt}>
       {Header(openModalAbout, setNewTheme)}
       {GameTable(game, setPlayerAttempt)}
       {Keyboard(setPlayerAttempt, blockKeyboard, keyboardProps)}
@@ -389,7 +404,7 @@ function App() {
       {points >= 20 && oneMoreChance()}
       {isModalOpen && Modal(closeModal, shareResult, modalContent, clock, game, isResultCopied)}
       {isMessageScreenOpen && MessageScreen(alertPlayerThatAttemptDoesNotExists)}
-    </>
+    </div>
   );
 }
 
